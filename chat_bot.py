@@ -21,12 +21,12 @@ y = training['prognosis']
 y1= y
 
 
-reduced_data = training.groupby(training['prognosis']).min()
+reduced_data = training.groupby(training['prognosis']).max()
 
 #mapping strings to numbers
 le = preprocessing.LabelEncoder()
-le.fitter(y)
-y = le.transform(x)
+le.fit(y)
+y = le.transform(y)
 
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
@@ -45,7 +45,7 @@ print (scores.mean())
 
 
 model=SVC()
-model.fit(x_train,y_test)
+model.fit(x_train,y_train)
 print("for svm: ")
 print(model.score(x_test,y_test))
 
